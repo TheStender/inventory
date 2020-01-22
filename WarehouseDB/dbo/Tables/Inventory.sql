@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Inventory]
+(
+	[InventoryID] INT NOT NULL PRIMARY KEY, 
+    [ProductID] INT FOREIGN KEY REFERENCES Product(ProductID) NOT NULL, 
+    [BinID] INT FOREIGN KEY REFERENCES Bins(BinID) NOT NULL, 
+    [QTY] INT NOT NULL
+)

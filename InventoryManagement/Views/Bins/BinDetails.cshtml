@@ -1,0 +1,33 @@
+﻿@model DataLibrary.Models.BinModel
+
+@{
+    ViewBag.Title = "Bin Details";
+}
+
+<h2>Bin Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BinID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BinID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BinName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BinName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditBin", new { id = Model.BinID  }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

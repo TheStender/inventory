@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="b7a01738-69f7-4866-8298-5b6d96b92ae1" ChangeDateTime="01/22/2020 02:49:27">
+    <Property Name="ElementName" Value="[dbo].[Inventory].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Inventory]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ProductID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9a1e284c-2de9-4d7f-96b7-501b92753585" ChangeDateTime="01/22/2020 02:49:56">
+    <Property Name="ElementName" Value="[dbo].[Order].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Order]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="OrderID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ffafa48c-0b7d-45b3-95dc-f0ec9929fdad" ChangeDateTime="01/22/2020 02:50:38">
+    <Property Name="ElementName" Value="[dbo].[OrderLines].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[OrderLines]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="OrderLineID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c9b6aa0a-68eb-44eb-b2d2-e5c2de5e2176" ChangeDateTime="01/22/2020 03:00:31">
+    <Property Name="ElementName" Value="[dbo].[Bins].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Bins]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BinID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="57f6e992-451b-4945-a8c7-80c72c1f4b5a" ChangeDateTime="01/22/2020 03:01:01">
+    <Property Name="ElementName" Value="[dbo].[Product].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Product]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ProductID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d4c5e35e-c8ec-4b79-8cbf-6a76f36f257f" ChangeDateTime="01/22/2020 03:01:31">
+    <Property Name="ElementName" Value="[dbo].[Inventory].[ProductID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Inventory]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="InventoryID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="66048abc-6ab0-4cfb-a4e3-c6051a01cc98" ChangeDateTime="01/22/2020 03:01:35">
+    <Property Name="ElementName" Value="[dbo].[Inventory].[SKU]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Inventory]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ProductID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3cb96a2f-4dfc-47f8-b1a4-c4679b13c74b" ChangeDateTime="01/22/2020 03:01:42">
+    <Property Name="ElementName" Value="[dbo].[Inventory].[ProductDescription]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Inventory]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BinID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ede25401-9549-4ce2-845a-a2ce84192d74" ChangeDateTime="01/22/2020 03:10:46">
+    <Property Name="ElementName" Value="[dbo].[OrderLines].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[OrderLines]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="OrderLineID" />
+  </Operation>
+</Operations>

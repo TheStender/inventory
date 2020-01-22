@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement", "InventoryManagement\InventoryManagement.csproj", "{4F7671D5-BF34-47A5-AE76-BD418324F8E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLibrary", "DataLibrary\DataLibrary.csproj", "{F288AC16-47AA-41C1-82DF-E0B53A2255FB}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "WarehouseDB", "WarehouseDB\WarehouseDB.sqlproj", "{E0EE3056-059E-46F3-8CB1-36EF9CC8D9FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,16 @@ Global
 		{4F7671D5-BF34-47A5-AE76-BD418324F8E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F7671D5-BF34-47A5-AE76-BD418324F8E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F7671D5-BF34-47A5-AE76-BD418324F8E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F288AC16-47AA-41C1-82DF-E0B53A2255FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F288AC16-47AA-41C1-82DF-E0B53A2255FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F288AC16-47AA-41C1-82DF-E0B53A2255FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F288AC16-47AA-41C1-82DF-E0B53A2255FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0EE3056-059E-46F3-8CB1-36EF9CC8D9FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0EE3056-059E-46F3-8CB1-36EF9CC8D9FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0EE3056-059E-46F3-8CB1-36EF9CC8D9FD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{E0EE3056-059E-46F3-8CB1-36EF9CC8D9FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0EE3056-059E-46F3-8CB1-36EF9CC8D9FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0EE3056-059E-46F3-8CB1-36EF9CC8D9FD}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<InventoryManagement.Models.InventoryModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AddInventory")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.InventoryID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BinID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QTY)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.InventoryID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BinID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QTY)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditInventory", new { id=item.InventoryID  }) |
+            @Html.ActionLink("Details", "InventoryDetails", new {  id=item.InventoryID  }) |
+            @Html.ActionLink("Delete", "DeleteInventory", new {  id=item.InventoryID  })
+        </td>
+    </tr>
+}
+
+</table>

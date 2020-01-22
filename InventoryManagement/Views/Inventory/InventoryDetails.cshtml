@@ -1,0 +1,49 @@
+﻿@model DataLibrary.Models.InventoryModel
+
+@{
+    ViewBag.Title = "Inventory Details";
+}
+
+<h2>Inventory @Html.DisplayFor(model => model.InventoryID) </h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.InventoryID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InventoryID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BinID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BinID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QTY)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QTY)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditInventory", new {  id = Model.InventoryID  }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
