@@ -205,6 +205,11 @@
     <Content Include="Views\Order\DeleteOrder.cshtml" />
     <Content Include="Views\Inventory\DeleteInventory.cshtml" />
     <Content Include="Views\Bins\DeleteBin.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Inventory\Error.cshtml" />
+    <Content Include="Views\Order\Error.cshtml" />
+    <Content Include="Views\Product\Error.cshtml" />
+    <Content Include="Views\Bins\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

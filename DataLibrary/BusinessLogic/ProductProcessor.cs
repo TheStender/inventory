@@ -22,7 +22,7 @@ namespace DataLibrary.BusinessLogic
             string sql = @"insert into dbo.product (ProductID, SKU, ProductDescription)
                            values (@ProductID, @SKU, @ProductDescription);";
 
-            return SqlDataAccess.SaveData(sql, data);
+            return SqlDataAccess.Execute(sql, data);
         }
 
         public static List<ProductModel> LoadProducts()
@@ -30,7 +30,7 @@ namespace DataLibrary.BusinessLogic
             string sql = @"select ProductID, SKU, ProductDescription
                             from dbo.product;";
 
-            return SqlDataAccess.LoadData<ProductModel>(sql);
+            return SqlDataAccess.Query<ProductModel>(sql);
         }
 
         //test edit
@@ -47,23 +47,21 @@ namespace DataLibrary.BusinessLogic
                         set SKU = @SKU, ProductDescription = @ProductDescription
                         WHERE ProductID = @ProductID;";
 
-            return SqlDataAccess.SaveData(sql, data);
+            return SqlDataAccess.Execute(sql, data);
         }
 
         //test delete
-        public static int RemoveProduct(int productID, string sku, string description)
+        public static int RemoveProduct(int productID)
         {
             ProductModel data = new ProductModel
             {
-                ProductID = productID,
-                SKU = sku,
-                ProductDescription = description
+                ProductID = productID
             };
 
             string sql = @"delete from dbo.product 
                           WHERE ProductID = @ProductID;";
 
-            return SqlDataAccess.SaveData(sql, data);
+            return SqlDataAccess.Execute(sql, data);
         }
 
 

@@ -59,9 +59,17 @@ namespace InventoryManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                CreateBin(model.BinID, 
+                try
+                {
+                    CreateBin(model.BinID,
                         model.BinName);
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    ViewBag.ErrorMessage = e.Message;
+                    return View(model);
+                }
             }
 
             return View();
@@ -89,9 +97,17 @@ namespace InventoryManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                UpdateBin(model.BinID,
+                try
+                {
+                    UpdateBin(model.BinID,
                         model.BinName);
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    ViewBag.ErrorMessage = e.Message;
+                    return View(model);
+                }
             }
 
             return View();
@@ -117,8 +133,7 @@ namespace InventoryManagement.Controllers
         [HttpPost]
         public ActionResult DeleteBin(BinModel model)
         {
-            RemoveBin(model.BinID,
-                        model.BinName);
+            RemoveBin(model.BinID);
             return RedirectToAction("Index");
         }
     }

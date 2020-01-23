@@ -61,12 +61,20 @@ namespace InventoryManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                CreateOrder(model.OrderID,
-                            model.OrderNumber, 
-                            model.DateOrdered, 
-                            model.CustomerName, 
+                try
+                {
+                    CreateOrder(model.OrderID,
+                            model.OrderNumber,
+                            model.DateOrdered,
+                            model.CustomerName,
                             model.CustomerAddress);
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    ViewBag.ErrorMessage = e.Message;
+                    return View(model);
+                } 
             }
 
             return View();
@@ -94,12 +102,21 @@ namespace InventoryManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                UpdateOrder(model.OrderID,
+                try
+                {
+                    UpdateOrder(model.OrderID,
                             model.OrderNumber,
                             model.DateOrdered,
                             model.CustomerName,
                             model.CustomerAddress);
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    ViewBag.ErrorMessage = e.Message;
+                    return View(model);
+                }
+                
             }
 
             return View();
@@ -125,11 +142,7 @@ namespace InventoryManagement.Controllers
         [HttpPost]
         public ActionResult DeleteOrder(OrderModel model)
         {
-            RemoveOrder(model.OrderID,
-                    model.OrderNumber,
-                    model.DateOrdered,
-                    model.CustomerName,
-                    model.CustomerAddress);
+            RemoveOrder(model.OrderID);
             return RedirectToAction("Index");
         }
     }

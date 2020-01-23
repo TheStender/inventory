@@ -15,7 +15,7 @@ namespace DataLibrary.BusinessLogic
             string sql = @"select OrderLineID, OrderID, ProductID, QTY
                         from dbo.orderlines;";
 
-            return SqlDataAccess.LoadData<OrderLinesModel>(sql);
+            return SqlDataAccess.Query<OrderLinesModel>(sql);
         }
     }
 }

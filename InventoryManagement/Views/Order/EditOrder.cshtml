@@ -6,6 +6,10 @@
 
 <h2>Edit Order  @Html.DisplayFor(model => model.OrderID)</h2>
 
+@if (ViewBag.ErrorMessage != null)
+{
+    <p class="alert alert-danger">@ViewBag.ErrorMessage</p>
+}
 
 @using (Html.BeginForm())
 {

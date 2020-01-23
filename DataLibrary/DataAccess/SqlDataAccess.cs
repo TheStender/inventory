@@ -17,7 +17,7 @@ namespace DataLibrary.DataAccess
             return ConfigurationManager.ConnectionStrings[connectionName].ConnectionString;
         }
 
-        public static List<T> LoadData<T>(string sql)
+        public static List<T> Query<T>(string sql)
         {
             using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
             {
@@ -25,7 +25,7 @@ namespace DataLibrary.DataAccess
             }
         }
 
-        public static int SaveData<T>(string sql, T data)
+        public static int Execute<T>(string sql, T data)
         {
             using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
             {

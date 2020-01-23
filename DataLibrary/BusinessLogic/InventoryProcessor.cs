@@ -23,7 +23,7 @@ namespace DataLibrary.BusinessLogic
             string sql = @"insert into dbo.inventory (InventoryID, ProductID, BinID, QTY)
                            values (@InventoryID, @ProductID, @BinID, @QTY);";
 
-            return SqlDataAccess.SaveData(sql, data);
+            return SqlDataAccess.Execute(sql, data);
         }
 
         public static List<InventoryModel> LoadInventory()
@@ -31,7 +31,7 @@ namespace DataLibrary.BusinessLogic
             string sql = @"select InventoryID, ProductID, BinID, QTY
                             from dbo.inventory;";
 
-            return SqlDataAccess.LoadData<InventoryModel>(sql);
+            return SqlDataAccess.Query<InventoryModel>(sql);
         }
 
         public static int UpdateInventory(int inventoryID, int productID, int binID, int qty)
@@ -49,23 +49,20 @@ namespace DataLibrary.BusinessLogic
                         QTY = @qty 
                         WHERE InventoryID = @InventoryID;";
 
-            return SqlDataAccess.SaveData(sql, data);
+            return SqlDataAccess.Execute(sql, data);
         }
 
-        public static int RemoveInventory(int inventoryID, int productID, int binID, int qty)
+        public static int RemoveInventory(int inventoryID)
         {
             InventoryModel data = new InventoryModel
             {
-                InventoryID = inventoryID,
-                ProductID = productID,
-                BinID = binID,
-                QTY = qty
+                InventoryID = inventoryID
             };
 
             string sql = @"delete from dbo.inventory 
                           WHERE InventoryID = @InventoryID;";
 
-            return SqlDataAccess.SaveData(sql, data);
+            return SqlDataAccess.Execute(sql, data);
         }
     }
 }

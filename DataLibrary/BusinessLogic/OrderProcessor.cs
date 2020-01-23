@@ -24,7 +24,7 @@ namespace DataLibrary.BusinessLogic
             string sql = @"insert into dbo.orders (OrderID, OrderNumber, DateOrdered, CustomerName, CustomerAddress)
                            values (@OrderID, @OrderNumber, @DateOrdered, @CustomerName, @CustomerAddress);";
 
-            return SqlDataAccess.SaveData(sql, data);
+            return SqlDataAccess.Execute(sql, data);
         }
 
         public static List<OrderModel> LoadOrders()
@@ -32,7 +32,7 @@ namespace DataLibrary.BusinessLogic
             string sql = @"select OrderID, OrderNumber, DateOrdered, CustomerName, CustomerAddress
                             from dbo.orders;";
 
-            return SqlDataAccess.LoadData<OrderModel>(sql);
+            return SqlDataAccess.Query<OrderModel>(sql);
         }
 
         public static int UpdateOrder(int orderID, string orderNumber, DateTime dateordered, string customerName, string customerAddress)
@@ -51,24 +51,20 @@ namespace DataLibrary.BusinessLogic
                         CustomerName = @CustomerName, CustomerAddress = @CustomerAddress 
                         WHERE OrderID = @OrderID;";
 
-            return SqlDataAccess.SaveData(sql, data);
+            return SqlDataAccess.Execute(sql, data);
         }
 
-        public static int RemoveOrder(int orderID, string orderNumber, DateTime dateordered, string customerName, string customerAddress)
+        public static int RemoveOrder(int orderID)
         {
             OrderModel data = new OrderModel
             {
-                OrderID = orderID,
-                OrderNumber = orderNumber,
-                DateOrdered = dateordered,
-                CustomerName = customerName,
-                CustomerAddress = customerAddress
+                OrderID = orderID
             };
 
             string sql = @"delete from dbo.orders 
                           WHERE OrderID = @OrderID;";
 
-            return SqlDataAccess.SaveData(sql, data);
+            return SqlDataAccess.Execute(sql, data);
         }
     }
 }

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using static DataLibrary.BusinessLogic.InventoryProcessor;
+using static DataLibrary.BusinessLogic.ProductProcessor;
+using static DataLibrary.BusinessLogic.BinProcessor;
 
 namespace InventoryManagement.Controllers
 {
@@ -51,6 +53,34 @@ namespace InventoryManagement.Controllers
         // GET: Inventory/Create
         public ActionResult AddInventory()
         {
+            var data = LoadProducts();
+            List<ProductModel> products = new List<ProductModel>();
+
+            foreach (var row in data)
+            {
+                products.Add(new ProductModel
+                {
+                    ProductID = row.ProductID,
+                    SKU = row.SKU,
+                    ProductDescription = row.ProductDescription
+                });
+            }
+
+            var binData = LoadBins();
+            List<BinModel> bins = new List<BinModel>();
+
+            foreach (var row in binData)
+            {
+                bins.Add(new BinModel
+                {
+                    BinID = row.BinID,
+                    BinName = row.BinName
+                });
+            }
+
+            ViewBag.Products = products;
+            ViewBag.Bins = bins;
+
             return View();
         }
 
@@ -60,13 +90,20 @@ namespace InventoryManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                CreateInventory(model.InventoryID,
+                try
+                {
+                    CreateInventory(model.InventoryID,
                     model.ProductID,
                     model.BinID,
                     model.QTY);
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    ViewBag.ErrorMessage = e.Message;
+                    return View(model);
+                } 
             }
-
             return View();
         }
 
@@ -74,6 +111,34 @@ namespace InventoryManagement.Controllers
         public ActionResult EditInventory(int id)
         {
             var inventory = LoadInventory();
+
+            var data = LoadProducts();
+            List<ProductModel> products = new List<ProductModel>();
+
+            foreach (var row in data)
+            {
+                products.Add(new ProductModel
+                {
+                    ProductID = row.ProductID,
+                    SKU = row.SKU,
+                    ProductDescription = row.ProductDescription
+                });
+            }
+
+            var binData = LoadBins();
+            List<BinModel> bins = new List<BinModel>();
+
+            foreach (var row in binData)
+            {
+                bins.Add(new BinModel
+                {
+                    BinID = row.BinID,
+                    BinName = row.BinName
+                });
+            }
+
+            ViewBag.Products = products;
+            ViewBag.Bins = bins;
 
             try
             {
@@ -84,6 +149,7 @@ namespace InventoryManagement.Controllers
             {
                 return RedirectToAction("Index");
             }
+
         }
 
         // POST: Inventory/Edit/5
@@ -92,11 +158,20 @@ namespace InventoryManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                UpdateInventory(model.InventoryID,
+                try
+                {
+                    UpdateInventory(model.InventoryID,
                     model.ProductID,
                     model.BinID,
                     model.QTY);
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    ViewBag.ErrorMessage = e.Message;
+                    return View(model);
+                }
+                
             }
 
             return View();
@@ -122,10 +197,7 @@ namespace InventoryManagement.Controllers
         [HttpPost]
         public ActionResult DeleteInventory(InventoryModel model)
         {
-            RemoveInventory(model.InventoryID,
-                    model.ProductID,
-                    model.BinID,
-                    model.QTY);
+            RemoveInventory(model.InventoryID);
             return RedirectToAction("Index");
         }
     }

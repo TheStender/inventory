@@ -21,7 +21,7 @@ namespace DataLibrary.BusinessLogic
             string sql = @"insert into dbo.bins (BinID, BinName)
                            values (@BinID, @BinName);";
 
-            return SqlDataAccess.SaveData(sql, data);
+            return SqlDataAccess.Execute(sql, data);
         }
 
         public static List<BinModel> LoadBins()
@@ -29,7 +29,7 @@ namespace DataLibrary.BusinessLogic
             string sql = @"select BinID, BinName
                             from dbo.bins;";
 
-            return SqlDataAccess.LoadData<BinModel>(sql);
+            return SqlDataAccess.Query<BinModel>(sql);
         }
 
         public static int UpdateBin(int binID, string binName)
@@ -43,21 +43,20 @@ namespace DataLibrary.BusinessLogic
             string sql = @"update dbo.bins 
                         set BinName = @BinName WHERE BinID = @BinID;";
 
-            return SqlDataAccess.SaveData(sql, data);
+            return SqlDataAccess.Execute(sql, data);
         }
 
-        public static int RemoveBin(int binID, string binName)
+        public static int RemoveBin(int binID)
         {
             BinModel data = new BinModel
             {
-                BinID = binID,
-                BinName = binName
+                BinID = binID
             };
 
             string sql = @"delete from dbo.bins 
                           WHERE BinID = @BinID;";
 
-            return SqlDataAccess.SaveData(sql, data);
+            return SqlDataAccess.Execute(sql, data);
         }
     }
 }

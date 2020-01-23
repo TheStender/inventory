@@ -4,7 +4,7 @@
     ViewBag.Title = "Product List";
 }
 
-<h2>Index</h2>
+<h2>Product List</h2>
 
 <p>
     @Html.ActionLink("Add Product", "AddProduct")
@@ -23,23 +23,24 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SKU)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductDescription)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditProduct", new { id=item.ProductID }) |
-            @Html.ActionLink("Details", "ProductDetails", new { id=item.ProductID  }) |
-            @Html.ActionLink("Delete", "DeleteProduct", new { id=item.ProductID  })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SKU)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductDescription)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditProduct", new { id = item.ProductID }) |
+                @Html.ActionLink("Details", "ProductDetails", new { id = item.ProductID }) |
+                @Html.ActionLink("Delete", "DeleteProduct", new { id = item.ProductID })
+            </td>
+        </tr>
+    }
 
 </table>

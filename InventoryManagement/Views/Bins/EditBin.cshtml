@@ -6,6 +6,10 @@
 
 <h2>Edit Bin @Html.DisplayFor(model => model.BinID)</h2>
 
+@if (ViewBag.ErrorMessage != null)
+{
+    <p class="alert alert-danger">@ViewBag.ErrorMessage</p>
+}
 
 @using (Html.BeginForm())
 {

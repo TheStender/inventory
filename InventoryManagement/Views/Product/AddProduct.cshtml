@@ -4,8 +4,12 @@
     ViewBag.Title = "Add Product";
 }
 
-<h2>Create</h2>
+<h2>Create Product</h2>
 
+@if(ViewBag.ErrorMessage != null)
+{
+    <p class="alert alert-danger">@ViewBag.ErrorMessage</p>
+}
 
 @using (Html.BeginForm()) 
 {

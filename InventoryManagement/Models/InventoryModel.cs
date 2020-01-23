@@ -13,16 +13,17 @@ namespace InventoryManagement.Models
         public int InventoryID { get; set; }
 
         [Display(Name = "Product ID")]
-        [Range(1, 9999999, ErrorMessage = "Please enter a valid product number(0-9999999)")]
+        [Range(1, 9999999, ErrorMessage = "Please enter a valid product number(1-9999999)")]
         [Required(ErrorMessage = "Please enter the Product ID")]
         public int ProductID { get; set; }
 
         [Display(Name = "Bin ID")]
+        [Range(1, 9999999, ErrorMessage = "Please enter a valid bin number(1-9999999)")]
         [Required(ErrorMessage = "Please enter the Bin ID")]
         public int BinID { get; set; }
 
         [Display(Name = "Quantity")]
-        [Range(1, 9999999, ErrorMessage = "Please enter a valid product number(0-9999999)")]
+        [Range(1, 9999999, ErrorMessage = "Please enter a valid product number(1-9999999)")]
         [Required(ErrorMessage = "Please enter the quantity")]
         public int QTY { get; set; }
     }

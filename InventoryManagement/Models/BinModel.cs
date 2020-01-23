@@ -9,6 +9,7 @@ namespace InventoryManagement.Models
     public class BinModel
     {
         [Display(Name = "Bin ID")]
+        [Range(1, 9999999, ErrorMessage = "Please enter a valid bin number(1-9999999)")]
         [Required(ErrorMessage = "Please enter a Bin ID")]
         public int BinID { get; set; }
 

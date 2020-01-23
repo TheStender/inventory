@@ -61,10 +61,19 @@ namespace InventoryManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                CreateProduct(model.ProductID,
+                try
+                {
+                    CreateProduct(model.ProductID,
                     model.SKU,
                     model.ProductDescription);
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    ViewBag.ErrorMessage = e.Message;
+                    return View(model);
+                }
+
             }
 
             return View();
@@ -92,10 +101,19 @@ namespace InventoryManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                UpdateProduct(model.ProductID, 
-                    model.SKU, 
+                try
+                {
+                    UpdateProduct(model.ProductID,
+                    model.SKU,
                     model.ProductDescription);
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    ViewBag.ErrorMessage = e.Message;
+                    return View(model);
+                }
+                
             }
 
             return View();
@@ -121,9 +139,7 @@ namespace InventoryManagement.Controllers
         [HttpPost]
         public ActionResult DeleteProduct(ProductModel model)
         {
-            RemoveProduct(model.ProductID,
-                    model.SKU,
-                    model.ProductDescription);
+            RemoveProduct(model.ProductID);
             return RedirectToAction("Index");
         }
     }
