@@ -1,16 +1,16 @@
-﻿@model InventoryManagement.Models.InventoryModel
+﻿@model DataLibrary.Models.InventoryModel
 
 @{
     ViewBag.Title = "Edit Inventory";
 }
 
-<h2>Edit Inventory</h2>
+<h2>Edit Inventory @Html.DisplayFor(model => model.InventoryID)</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })

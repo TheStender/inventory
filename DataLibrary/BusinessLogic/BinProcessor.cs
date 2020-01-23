@@ -46,19 +46,18 @@ namespace DataLibrary.BusinessLogic
             return SqlDataAccess.SaveData(sql, data);
         }
 
-        //public static int RemoveProduct(int productID, string sku, string description)
-        //{
-        //    ProductModel data = new ProductModel
-        //    {
-        //        ProductID = productID,
-        //        SKU = sku,
-        //        ProductDescription = description
-        //    };
+        public static int RemoveBin(int binID, string binName)
+        {
+            BinModel data = new BinModel
+            {
+                BinID = binID,
+                BinName = binName
+            };
 
-        //    string sql = @"delete from dbo.product 
-        //                  WHERE ProductID = @ProductID;";
+            string sql = @"delete from dbo.bins 
+                          WHERE BinID = @BinID;";
 
-        //    return SqlDataAccess.SaveData(sql, data);
-        //}
+            return SqlDataAccess.SaveData(sql, data);
+        }
     }
 }

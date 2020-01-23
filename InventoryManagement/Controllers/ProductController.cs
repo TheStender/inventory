@@ -73,7 +73,17 @@ namespace InventoryManagement.Controllers
         // GET: Product/Edit/5
         public ActionResult EditProduct(int id)
         {
-            return View();
+            var products = LoadProducts();
+
+            try
+            {
+                var p = products.Where(x => x.ProductID == id).First();
+                return View(p);
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         // POST: Product/Edit/5

@@ -17,7 +17,6 @@ namespace DataLibrary.DataAccess
             return ConfigurationManager.ConnectionStrings[connectionName].ConnectionString;
         }
 
-        // query whole database
         public static List<T> LoadData<T>(string sql)
         {
             using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
@@ -26,7 +25,6 @@ namespace DataLibrary.DataAccess
             }
         }
 
-        //returns number of records altered
         public static int SaveData<T>(string sql, T data)
         {
             using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
@@ -34,15 +32,5 @@ namespace DataLibrary.DataAccess
                 return cnn.Execute(sql, data);
             }
         }
-
-        //delete record
-        public static int DeleteData(string sql)
-        {
-            using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
-            {
-                return cnn.Execute(sql);
-            }
-        }
-
     }
 }

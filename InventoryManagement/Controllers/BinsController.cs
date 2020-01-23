@@ -70,7 +70,17 @@ namespace InventoryManagement.Controllers
         // GET: Bin/Edit/5
         public ActionResult EditBin(int id)
         {
-            return View();
+            var bins = LoadBins();
+
+            try
+            {
+                var b = bins.Where(x => x.BinID == id).First();
+                return View(b);
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         // POST: Bin/Edit/5
@@ -88,25 +98,28 @@ namespace InventoryManagement.Controllers
         }
 
         // GET: Bin/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult DeleteBin(int id)
         {
-            return View();
+            var bins = LoadBins();
+
+            try
+            {
+                var b = bins.Where(x => x.BinID == id).First();
+                return View(b);
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         // POST: Bin/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult DeleteBin(BinModel model)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            RemoveBin(model.BinID,
+                        model.BinName);
+            return RedirectToAction("Index");
         }
     }
 }

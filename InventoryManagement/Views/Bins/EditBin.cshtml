@@ -1,16 +1,16 @@
-﻿@model InventoryManagement.Models.BinModel
+﻿@model DataLibrary.Models.BinModel
 
 @{
     ViewBag.Title = "Edit Bin";
 }
 
-<h2>Edit Bin</h2>
+<h2>Edit Bin @Html.DisplayFor(model => model.BinID)</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>BinModel</h4>
         <hr />

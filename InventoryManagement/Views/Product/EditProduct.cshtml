@@ -1,10 +1,10 @@
-﻿@model InventoryManagement.Models.ProductModel
+﻿@model DataLibrary.Models.ProductModel
 
 @{
     ViewBag.Title = "Edit Product";
 }
 
-<h2>Edit</h2>
+<h2>Edit Product @Html.DisplayFor(model => model.ProductID) </h2>
 
 
 @using (Html.BeginForm())

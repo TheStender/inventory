@@ -202,6 +202,9 @@
     <Content Include="Views\Inventory\AddInventory.cshtml" />
     <Content Include="Views\Inventory\EditInventory.cshtml" />
     <Content Include="Views\OrderLines\Index.cshtml" />
+    <Content Include="Views\Order\DeleteOrder.cshtml" />
+    <Content Include="Views\Inventory\DeleteInventory.cshtml" />
+    <Content Include="Views\Bins\DeleteBin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
