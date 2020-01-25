@@ -1,16 +1,22 @@
 ﻿@model DataLibrary.Models.ProductModel
+@using DataLibrary.BusinessLogic
 
 @{
     ViewBag.Title = "Product Details";
 }
 
-<h2>Product @Html.DisplayFor(model => model.ProductID) </h2>
+@{ 
+    var inventory = InventoryProcessor.CheckInventory(Model.ProductID);
+}
 
+<h2>Product @Html.DisplayFor(model => model.ProductID) </h2>
+<p>Current Inventory: @inventory</p>
 <div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.ProductID)
+            @*@Html.DisplayNameFor(model => model.ProductID)*@
+            @Html.DisplayName("Product ID")
         </dt>
 
         <dd>
@@ -18,7 +24,8 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SKU)
+            @*@Html.DisplayNameFor(model => model.SKU)*@
+            @Html.DisplayName("Product SKU")
         </dt>
 
         <dd>
@@ -26,7 +33,8 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ProductDescription)
+            @*@Html.DisplayNameFor(model => model.ProductDescription)*@
+            @Html.DisplayName("Product Description")
         </dt>
 
         <dd>

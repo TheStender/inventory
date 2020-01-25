@@ -18,8 +18,8 @@ namespace DataLibrary.BusinessLogic
                 BinName = binName
             };
 
-            string sql = @"insert into dbo.bins (BinID, BinName)
-                           values (@BinID, @BinName);";
+            string sql = @"insert into dbo.bins (BinName)
+                           values (@BinName);";
 
             return SqlDataAccess.Execute(sql, data);
         }

@@ -20,8 +20,8 @@ namespace DataLibrary.BusinessLogic
                 QTY = qty
             };
 
-            string sql = @"insert into dbo.inventory (InventoryID, ProductID, BinID, QTY)
-                           values (@InventoryID, @ProductID, @BinID, @QTY);";
+            string sql = @"insert into dbo.inventory (ProductID, BinID, QTY)
+                           values (@ProductID, @BinID, @QTY);";
 
             return SqlDataAccess.Execute(sql, data);
         }
@@ -34,8 +34,23 @@ namespace DataLibrary.BusinessLogic
             return SqlDataAccess.Query<InventoryModel>(sql);
         }
 
-        public static int UpdateInventory(int inventoryID, int productID, int binID, int qty)
+        public static List<InventoryModel> LoadInventory(int productID)
         {
+
+            string sql = @"select InventoryID, ProductID, BinID, QTY
+                            from dbo.inventory WHERE ProductID = @ProductID;";
+
+            return SqlDataAccess.Query<InventoryModel>(sql, new { ProductID = productID});
+        }
+
+        public static void UpdateInventory(int inventoryID, int productID, int binID, int qty)
+        {
+            if(qty <= 0)
+            {
+                RemoveInventory(inventoryID);
+                return;
+            }
+
             InventoryModel data = new InventoryModel
             {
                 InventoryID = inventoryID,
@@ -49,10 +64,10 @@ namespace DataLibrary.BusinessLogic
                         QTY = @qty 
                         WHERE InventoryID = @InventoryID;";
 
-            return SqlDataAccess.Execute(sql, data);
+            SqlDataAccess.Execute(sql, data);
         }
 
-        public static int RemoveInventory(int inventoryID)
+        public static void RemoveInventory(int inventoryID)
         {
             InventoryModel data = new InventoryModel
             {
@@ -62,7 +77,21 @@ namespace DataLibrary.BusinessLogic
             string sql = @"delete from dbo.inventory 
                           WHERE InventoryID = @InventoryID;";
 
-            return SqlDataAccess.Execute(sql, data);
+            SqlDataAccess.Execute(sql, data);
+        }
+
+        public static int CheckInventory(int productID)
+        {
+            InventoryModel data = new InventoryModel
+            {
+                ProductID = productID
+            };
+
+            string sql = @"select sum(QTY) from dbo.inventory
+                          WHERE ProductID = @ProductID";
+
+            var inventory = SqlDataAccess.QueryScalar(sql, data);
+            return inventory;
         }
     }
 }

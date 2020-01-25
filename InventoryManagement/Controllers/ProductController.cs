@@ -63,8 +63,7 @@ namespace InventoryManagement.Controllers
             {
                 try
                 {
-                    CreateProduct(model.ProductID,
-                    model.SKU,
+                    CreateProduct(model.SKU,
                     model.ProductDescription);
                     return RedirectToAction("Index");
                 }

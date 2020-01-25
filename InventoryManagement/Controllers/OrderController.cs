@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using static DataLibrary.BusinessLogic.OrderProcessor;
+using static DataLibrary.BusinessLogic.ProductProcessor;
+using static DataLibrary.BusinessLogic.InventoryProcessor;
 
 namespace InventoryManagement.Controllers
 {
@@ -49,13 +51,41 @@ namespace InventoryManagement.Controllers
             }
         }
 
-        // GET: Order/Create
         public ActionResult AddOrder()
         {
+            var data = LoadProducts();
+            List<ProductModel> products = new List<ProductModel>();
+
+            foreach (var row in data)
+            {
+                products.Add(new ProductModel
+                {
+                    ProductID = row.ProductID,
+                    SKU = row.SKU,
+                    ProductDescription = row.ProductDescription
+                });
+            }
+
+            var inventoryData = LoadInventory();
+            List<InventoryModel> inventory = new List<InventoryModel>();
+
+            foreach (var row in inventoryData)
+            {
+                inventory.Add(new InventoryModel
+                {
+                    InventoryID = row.InventoryID,
+                    ProductID = row.ProductID,
+                    BinID = row.BinID,
+                    QTY = row.QTY
+                });
+            }
+
+            ViewBag.Products = products;
+            ViewBag.Inventory = inventory;
+
             return View();
         }
 
-        // POST: Order/Create
         [HttpPost]
         public ActionResult AddOrder(OrderModel model)
         {
@@ -63,12 +93,11 @@ namespace InventoryManagement.Controllers
             {
                 try
                 {
-                    CreateOrder(model.OrderID,
-                            model.OrderNumber,
+                    var orderID = CreateOrder(model.OrderNumber,
                             model.DateOrdered,
                             model.CustomerName,
                             model.CustomerAddress);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("../OrderLines/Index/" + orderID);
                 }
                 catch (Exception e)
                 {
@@ -80,7 +109,6 @@ namespace InventoryManagement.Controllers
             return View();
         }
 
-        // GET: Order/Edit/5
         public ActionResult EditOrder(int id)
         {
             var orders = LoadOrders();
@@ -96,7 +124,6 @@ namespace InventoryManagement.Controllers
             }
         }
 
-        // POST: Order/Edit/5
         [HttpPost]
         public ActionResult EditOrder(OrderModel model)
         {
@@ -122,7 +149,6 @@ namespace InventoryManagement.Controllers
             return View();
         }
 
-        // GET: Order/Delete/5
         public ActionResult DeleteOrder(int id)
         {
             var orders = LoadOrders();

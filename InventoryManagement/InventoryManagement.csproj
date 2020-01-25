@@ -210,6 +210,9 @@
     <Content Include="Views\Order\Error.cshtml" />
     <Content Include="Views\Product\Error.cshtml" />
     <Content Include="Views\Bins\Error.cshtml" />
+    <Content Include="Views\OrderLines\AddOrderLines.cshtml" />
+    <Content Include="Views\OrderLines\DeleteOrderLines.cshtml" />
+    <Content Include="Views\OrderLines\EditOrderLines.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

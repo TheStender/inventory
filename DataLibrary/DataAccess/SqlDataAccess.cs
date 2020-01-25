@@ -32,5 +32,21 @@ namespace DataLibrary.DataAccess
                 return cnn.Execute(sql, data);
             }
         }
+
+        public static List<T> Query<T>(string sql, object parameters)
+        {
+            using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
+            {
+                return cnn.Query<T>(sql, parameters).ToList();
+            }
+        }
+
+        public static int QueryScalar(string sql, object parameters)
+        {
+            using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
+            {
+                return cnn.Query<int>(sql, parameters).FirstOrDefault();
+            }
+        }
     }
 }

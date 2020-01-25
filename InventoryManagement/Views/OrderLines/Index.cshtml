@@ -1,12 +1,69 @@
 ﻿@model IEnumerable<InventoryManagement.Models.OrderLinesModel>
+@using DataLibrary.Models
 
 @{
+    var orderModel = (OrderModel)ViewBag.Order;
     ViewBag.Title = "Order Lines";
 }
 
-<h2>Order Lines</h2>
+@*<h2>Order @ViewBag.OrderID</h2>*@
 
+<h2>Order @orderModel.OrderID</h2>
 
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.OrderID)*@
+            @Html.DisplayName("Order ID")
+        </dt>
+
+        <dd>
+            @orderModel.OrderID
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.OrderNumber)*@
+            @Html.DisplayName("Order Number")
+        </dt>
+
+        <dd>
+            @orderModel.OrderNumber
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.DateOrdered)*@
+            @Html.DisplayName("Date Ordered")
+        </dt>
+
+        <dd>
+            @orderModel.DateOrdered.ToShortDateString()
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.CustomerName)*@
+            @Html.DisplayName("Customer Name")
+        </dt>
+
+        <dd>
+            @orderModel.CustomerName
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.CustomerAddress)*@
+            @Html.DisplayName("Customer Address")
+        </dt>
+
+        <dd>
+            @orderModel.CustomerAddress
+        </dd>
+
+    </dl>
+</div>
+
+<p>
+    <a href="/OrderLines/AddOrderLines/@orderModel.OrderID">Add Order Line</a>
+</p>
 <table class="table">
     <tr>
         <th>
@@ -24,21 +81,27 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrderLineID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrderID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.QTY)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderLineID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QTY)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "EditOrderLines", new { orderID = ViewBag.OrderID, id = item.OrderLineID })*@
+                <a href="../EditOrderLines/@orderModel.OrderID/@item.OrderLineID ">Edit</a> |
+                @Html.ActionLink("Delete", "DeleteOrderLines", new { orderID = ViewBag.OrderID, id = item.OrderLineID })
+            </td>
+        </tr>
+    }
 
 </table>

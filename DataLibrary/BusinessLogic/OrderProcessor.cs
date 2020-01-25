@@ -10,21 +10,20 @@ namespace DataLibrary.BusinessLogic
 {
     public static class OrderProcessor
     {
-        public static int CreateOrder(int orderID, string orderNumber, DateTime dateordered, string customerName, string customerAddress)
+        public static int CreateOrder(string orderNumber, DateTime dateordered, string customerName, string customerAddress)
         {
             OrderModel data = new OrderModel
             {
-                OrderID = orderID,
                 OrderNumber = orderNumber,
                 DateOrdered = dateordered,
                 CustomerName = customerName,
                 CustomerAddress = customerAddress
             };
 
-            string sql = @"insert into dbo.orders (OrderID, OrderNumber, DateOrdered, CustomerName, CustomerAddress)
-                           values (@OrderID, @OrderNumber, @DateOrdered, @CustomerName, @CustomerAddress);";
+            string sql = @"insert into dbo.orders (OrderNumber, DateOrdered, CustomerName, CustomerAddress)
+                           values (@OrderNumber, @DateOrdered, @CustomerName, @CustomerAddress); SELECT CAST(SCOPE_IDENTITY() as int)";
 
-            return SqlDataAccess.Execute(sql, data);
+            return SqlDataAccess.Query<int>(sql, data).Single();
         }
 
         public static List<OrderModel> LoadOrders()

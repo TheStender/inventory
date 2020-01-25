@@ -10,17 +10,16 @@ namespace DataLibrary.BusinessLogic
 {
     public static class ProductProcessor
     {
-        public static int CreateProduct(int productID, string sku, string description)
+        public static int CreateProduct(string sku, string description)
         {
             ProductModel data = new ProductModel
             {
-                ProductID = productID,
                 SKU = sku,
                 ProductDescription = description
             };
 
-            string sql = @"insert into dbo.product (ProductID, SKU, ProductDescription)
-                           values (@ProductID, @SKU, @ProductDescription);";
+            string sql = @"insert into dbo.product (SKU, ProductDescription)
+                           values (@SKU, @ProductDescription);";
 
             return SqlDataAccess.Execute(sql, data);
         }
