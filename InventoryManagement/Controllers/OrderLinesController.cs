@@ -123,8 +123,18 @@ namespace InventoryManagement.Controllers
         {
             var previousState = LoadOrderLine(model.OrderLineID);
 
-            RemoveOrderLine(model.OrderLineID);
+            try
+            {
+                RemoveOrderLine(model.OrderLineID); 
+            }
+            catch (Exception e)
+            {
+                ViewBag.ErrorMessage = e.Message;
+                return View(model);
+            }
+
             return RedirectToAction("Index/" + model.OrderID);
+
         }
 
         private static List<ProductModel> LoadProductModels()

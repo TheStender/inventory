@@ -6,6 +6,11 @@
 
 <h2>Delete Order Line @Html.DisplayFor(model => model.OrderLineID)</h2>
 
+@if (ViewBag.ErrorMessage != null)
+{
+    <p class="alert alert-danger">@ViewBag.ErrorMessage</p>
+}
+
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <hr />
@@ -44,13 +49,14 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
-    <div class="form-actions no-color">
-        @Html.HiddenFor(model => model.OrderLineID);
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        @Html.ActionLink("Back to List", "Index/" + Model.OrderID)
-    </div>
+        <div class="form-actions no-color">
+            @Html.HiddenFor(model => model.OrderLineID);
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index/" + Model.OrderID)
+        </div>
     }
 </div>
