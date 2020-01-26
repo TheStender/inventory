@@ -1,10 +1,6 @@
 ﻿using DataLibrary.DataAccess;
 using DataLibrary.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataLibrary.BusinessLogic
 {
@@ -32,7 +28,6 @@ namespace DataLibrary.BusinessLogic
             return SqlDataAccess.Query<ProductModel>(sql);
         }
 
-        //test edit
         public static int UpdateProduct(int productID, string sku, string description)
         {
             ProductModel data = new ProductModel
@@ -49,7 +44,6 @@ namespace DataLibrary.BusinessLogic
             return SqlDataAccess.Execute(sql, data);
         }
 
-        //test delete
         public static int RemoveProduct(int productID)
         {
             ProductModel data = new ProductModel

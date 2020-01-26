@@ -6,6 +6,13 @@
 
 <h2>Product List</h2>
 
+@if (TempData["errorMessage"] != null)
+{
+    <p class="alert alert-danger">
+        @TempData["errorMessage"]
+    </p>
+}
+
 <p>
     @Html.ActionLink("Add Product", "AddProduct")
 </p>

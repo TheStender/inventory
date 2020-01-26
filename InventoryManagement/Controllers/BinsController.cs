@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using static DataLibrary.BusinessLogic.BinProcessor;
 
@@ -37,7 +36,7 @@ namespace InventoryManagement.Controllers
 
             try
             {
-                var p = bins.Where(x => x.BinID == id).First();
+                var p = bins.Where(x => x.BinID == id).FirstOrDefault();
                 return View(p);
             }
             catch
@@ -82,7 +81,7 @@ namespace InventoryManagement.Controllers
 
             try
             {
-                var b = bins.Where(x => x.BinID == id).First();
+                var b = bins.Where(x => x.BinID == id).FirstOrDefault();
                 return View(b);
             }
             catch
@@ -120,7 +119,7 @@ namespace InventoryManagement.Controllers
 
             try
             {
-                var b = bins.Where(x => x.BinID == id).First();
+                var b = bins.Where(x => x.BinID == id).FirstOrDefault();
                 return View(b);
             }
             catch
@@ -133,8 +132,16 @@ namespace InventoryManagement.Controllers
         [HttpPost]
         public ActionResult DeleteBin(BinModel model)
         {
-            RemoveBin(model.BinID);
-            return RedirectToAction("Index");
+            try
+            {
+                RemoveBin(model.BinID);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                TempData["errorMessage"] = e.Message;
+                return RedirectToAction("Index");
+            } 
         }
     }
 }

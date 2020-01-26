@@ -6,6 +6,13 @@
 
 <h2>Bins</h2>
 
+@if (TempData["errorMessage"] != null)
+{
+    <p class="alert alert-danger">
+        @TempData["errorMessage"]
+    </p>
+}
+
 <p>
     @Html.ActionLink("Create New", "AddBin")
 </p>
@@ -20,20 +27,21 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BinID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BinName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditBin", new { id=item.BinID  }) |
-            @Html.ActionLink("Details", "BinDetails", new {  id=item.BinID  }) |
-            @Html.ActionLink("Delete", "DeleteBin", new {  id=item.BinID  })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BinID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BinName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditBin", new { id = item.BinID }) |
+                @Html.ActionLink("Details", "BinDetails", new { id = item.BinID }) |
+                @Html.ActionLink("Delete", "DeleteBin", new { id = item.BinID })
+            </td>
+        </tr>
+    }
 
 </table>

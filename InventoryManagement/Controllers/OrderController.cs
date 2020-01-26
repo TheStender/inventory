@@ -35,22 +35,6 @@ namespace InventoryManagement.Controllers
             return View(orders);
         }
 
-        // GET: Order/Details/5
-        public ActionResult OrderDetails(int id)
-        {
-            var orders = LoadOrders();
-
-            try
-            {
-                var order = orders.Where(x => x.OrderID == id).First();
-                return View(order);
-            }
-            catch
-            {
-                return RedirectToAction("Index");
-            }
-        }
-
         public ActionResult AddOrder()
         {
             var data = LoadProducts();
@@ -115,7 +99,7 @@ namespace InventoryManagement.Controllers
 
             try
             {
-                var order = orders.Where(x => x.OrderID == id).First();
+                var order = orders.Where(x => x.OrderID == id).FirstOrDefault();
                 return View(order);
             }
             catch
@@ -155,7 +139,7 @@ namespace InventoryManagement.Controllers
 
             try
             {
-                var order = orders.Where(x => x.OrderID == id).First();
+                var order = orders.Where(x => x.OrderID == id).FirstOrDefault();
                 return View(order);
             }
             catch
@@ -168,8 +152,16 @@ namespace InventoryManagement.Controllers
         [HttpPost]
         public ActionResult DeleteOrder(OrderModel model)
         {
-            RemoveOrder(model.OrderID);
-            return RedirectToAction("Index");
+            try
+            {
+                RemoveOrder(model.OrderID);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                TempData["errorMessage"] = e.Message;
+                return RedirectToAction("Index");
+            }
         }
     }
 }

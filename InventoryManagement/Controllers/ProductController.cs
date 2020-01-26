@@ -38,7 +38,7 @@ namespace InventoryManagement.Controllers
 
             try
             {
-                var p = products.Where(x => x.ProductID == id).First();
+                var p = products.Where(x => x.ProductID == id).FirstOrDefault();
                 return View(p);
             }
             catch
@@ -85,7 +85,7 @@ namespace InventoryManagement.Controllers
 
             try
             {
-                var p = products.Where(x => x.ProductID == id).First();
+                var p = products.Where(x => x.ProductID == id).FirstOrDefault();
                 return View(p);
             }
             catch
@@ -111,8 +111,7 @@ namespace InventoryManagement.Controllers
                 {
                     ViewBag.ErrorMessage = e.Message;
                     return View(model);
-                }
-                
+                } 
             }
 
             return View();
@@ -125,7 +124,7 @@ namespace InventoryManagement.Controllers
 
             try
             {
-                var p = products.Where(x => x.ProductID == id).First();
+                var p = products.Where(x => x.ProductID == id).FirstOrDefault();
                 return View(p);
             }
             catch
@@ -138,8 +137,16 @@ namespace InventoryManagement.Controllers
         [HttpPost]
         public ActionResult DeleteProduct(ProductModel model)
         {
-            RemoveProduct(model.ProductID);
-            return RedirectToAction("Index");
+            try
+            {
+                RemoveProduct(model.ProductID);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                TempData["errorMessage"] = e.Message;
+                return RedirectToAction("Index");
+            }
         }
     }
 }

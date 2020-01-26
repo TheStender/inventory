@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using static DataLibrary.BusinessLogic.OrderLinesProcessor;
 using static DataLibrary.BusinessLogic.OrderProcessor;
+using static DataLibrary.BusinessLogic.ProductProcessor;
 using static DataLibrary.BusinessLogic.InventoryProcessor;
 
 namespace InventoryManagement.Controllers
@@ -37,6 +38,9 @@ namespace InventoryManagement.Controllers
 
         public ActionResult AddOrderLines(int orderID)
         {
+            
+
+            ViewBag.Products = LoadProductModels();
 
             return View(new OrderLinesModel {
                 OrderID = orderID,
@@ -47,6 +51,8 @@ namespace InventoryManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddOrderLines(OrderLinesModel model)
         {
+            ViewBag.Products = LoadProductModels();
+
             if (ModelState.IsValid)
             {
                 try
@@ -60,19 +66,15 @@ namespace InventoryManagement.Controllers
                     CreateOrderLine(model.OrderID,
                         model.ProductID,
                         model.QTY);
-                    //return View();
-                    //return RedirectToAction("Index");
+                    return RedirectToAction("Index/" + model.OrderID);
                 }
                 catch (Exception e)
                 {
                     ViewBag.ErrorMessage = e.Message;
                     return View(model);
                 }
-
             }
-            return RedirectToAction("Index/" + model.OrderID);
-
-            //return View();
+            return View(model);
         }
 
         public ActionResult EditOrderLines(int orderID, int id)
@@ -80,9 +82,8 @@ namespace InventoryManagement.Controllers
             var orderLines = LoadOrderLines(orderID);
             ViewBag.OrderID = orderID;
 
-            var orderLine = orderLines.Where(x => x.OrderLineID == id).First();
+            var orderLine = orderLines.Where(x => x.OrderLineID == id).FirstOrDefault();
             return View(orderLine);
-
         }
 
         [HttpPost]
@@ -97,42 +98,51 @@ namespace InventoryManagement.Controllers
                         model.ProductID,
                         model.QTY);
                     return RedirectToAction("Index/" + model.OrderID);
-                    //return View("Index", new { orderID = ViewBag.OrderID });
                 }
                 catch (Exception e)
                 {
                     ViewBag.ErrorMessage = e.Message;
                     return View(model);
                 }
-
             }
 
             return View();
         }
 
-        public ActionResult DeleteOrderLines(int orderID)
+        public ActionResult DeleteOrderLines(int orderID, int id)
         {
             var orderLines = LoadOrderLines(orderID);
             ViewBag.OrderID = orderID;
 
-            try
-            {
-                var p = orderLines.Where(x => x.OrderID == orderID).First();
-                return RedirectToAction("Index/" + orderID);
-            }
-            catch
-            {
-                return RedirectToAction("Index/" + orderID);
-            }
+            var orderLine = orderLines.Where(x => x.OrderLineID == id).FirstOrDefault();
+            return View(orderLine);
         }
 
         [HttpPost]
         public ActionResult DeleteOrderLines(OrderLinesModel model)
         {
+            var previousState = LoadOrderLine(model.OrderLineID);
+
             RemoveOrderLine(model.OrderLineID);
-            //return RedirectToAction("Index");
             return RedirectToAction("Index/" + model.OrderID);
         }
 
+        private static List<ProductModel> LoadProductModels()
+        {
+            var data = LoadProducts();
+            List<ProductModel> products = new List<ProductModel>();
+
+            foreach (var row in data)
+            {
+                products.Add(new ProductModel
+                {
+                    ProductID = row.ProductID,
+                    SKU = row.SKU,
+                    ProductDescription = row.ProductDescription
+                });
+            }
+
+            return products;
+        }
     }
 }

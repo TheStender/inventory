@@ -11,7 +11,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.OrderLineID)
+            @Html.DisplayName("Order Line ID")
         </dt>
 
         <dd>
@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.OrderID)
+            @Html.DisplayName("Order ID")
         </dt>
 
         <dd>
@@ -27,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ProductID)
+            @Html.DisplayName("Product ID")
         </dt>
 
         <dd>
@@ -35,7 +35,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.QTY)
+            @Html.DisplayName("Quantity")
         </dt>
 
         <dd>
@@ -50,7 +50,7 @@
     <div class="form-actions no-color">
         @Html.HiddenFor(model => model.OrderLineID);
         <input type="submit" value="Delete" class="btn btn-default" /> |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Back to List", "Index/" + Model.OrderID)
     </div>
     }
 </div>

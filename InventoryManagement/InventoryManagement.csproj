@@ -191,7 +191,6 @@
     <Content Include="Views\Order\AddOrder.cshtml" />
     <Content Include="Views\Product\ProductDetails.cshtml" />
     <Content Include="Views\Product\DeleteProduct.cshtml" />
-    <Content Include="Views\Order\OrderDetails.cshtml" />
     <Content Include="Views\Order\EditOrder.cshtml" />
     <Content Include="Views\Bins\Index.cshtml" />
     <Content Include="Views\Bins\AddBin.cshtml" />
@@ -205,11 +204,6 @@
     <Content Include="Views\Order\DeleteOrder.cshtml" />
     <Content Include="Views\Inventory\DeleteInventory.cshtml" />
     <Content Include="Views\Bins\DeleteBin.cshtml" />
-    <Content Include="Views\Home\Error.cshtml" />
-    <Content Include="Views\Inventory\Error.cshtml" />
-    <Content Include="Views\Order\Error.cshtml" />
-    <Content Include="Views\Product\Error.cshtml" />
-    <Content Include="Views\Bins\Error.cshtml" />
     <Content Include="Views\OrderLines\AddOrderLines.cshtml" />
     <Content Include="Views\OrderLines\DeleteOrderLines.cshtml" />
     <Content Include="Views\OrderLines\EditOrderLines.cshtml" />

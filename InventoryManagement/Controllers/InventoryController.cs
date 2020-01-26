@@ -41,7 +41,7 @@ namespace InventoryManagement.Controllers
 
             try
             {
-                var stock = inventory.Where(x => x.InventoryID == id).First();
+                var stock = inventory.Where(x => x.InventoryID == id).FirstOrDefault ();
                 return View(stock);
             }
             catch
@@ -53,33 +53,8 @@ namespace InventoryManagement.Controllers
         // GET: Inventory/Create
         public ActionResult AddInventory()
         {
-            var data = LoadProducts();
-            List<ProductModel> products = new List<ProductModel>();
-
-            foreach (var row in data)
-            {
-                products.Add(new ProductModel
-                {
-                    ProductID = row.ProductID,
-                    SKU = row.SKU,
-                    ProductDescription = row.ProductDescription
-                });
-            }
-
-            var binData = LoadBins();
-            List<BinModel> bins = new List<BinModel>();
-
-            foreach (var row in binData)
-            {
-                bins.Add(new BinModel
-                {
-                    BinID = row.BinID,
-                    BinName = row.BinName
-                });
-            }
-
-            ViewBag.Products = products;
-            ViewBag.Bins = bins;
+            ViewBag.Products = LoadProductModels();
+            ViewBag.Bins = LoadBinModels();
 
             return View();
         }
@@ -88,6 +63,9 @@ namespace InventoryManagement.Controllers
         [HttpPost]
         public ActionResult AddInventory(InventoryModel model)
         {
+            ViewBag.Products = LoadProductModels();
+            ViewBag.Bins = LoadBinModels();
+
             if (ModelState.IsValid)
             {
                 try
@@ -104,45 +82,19 @@ namespace InventoryManagement.Controllers
                     return View(model);
                 } 
             }
-            return View();
+            return View(model);
         }
 
         // GET: Inventory/Edit/5
         public ActionResult EditInventory(int id)
         {
             var inventory = LoadInventory();
-
-            var data = LoadProducts();
-            List<ProductModel> products = new List<ProductModel>();
-
-            foreach (var row in data)
-            {
-                products.Add(new ProductModel
-                {
-                    ProductID = row.ProductID,
-                    SKU = row.SKU,
-                    ProductDescription = row.ProductDescription
-                });
-            }
-
-            var binData = LoadBins();
-            List<BinModel> bins = new List<BinModel>();
-
-            foreach (var row in binData)
-            {
-                bins.Add(new BinModel
-                {
-                    BinID = row.BinID,
-                    BinName = row.BinName
-                });
-            }
-
-            ViewBag.Products = products;
-            ViewBag.Bins = bins;
+            ViewBag.Products = LoadProductModels();
+            ViewBag.Bins = LoadBinModels();
 
             try
             {
-                var inv = inventory.Where(x => x.InventoryID == id).First();
+                var inv = inventory.Where(x => x.InventoryID == id).FirstOrDefault();
                 return View(inv);
             }
             catch
@@ -184,7 +136,7 @@ namespace InventoryManagement.Controllers
 
             try
             {
-                var inv = inventory.Where(x => x.InventoryID == id).First();
+                var inv = inventory.Where(x => x.InventoryID == id).FirstOrDefault();
                 return View(inv);
             }
             catch
@@ -199,6 +151,41 @@ namespace InventoryManagement.Controllers
         {
             RemoveInventory(model.InventoryID);
             return RedirectToAction("Index");
+        }
+
+        private static List<ProductModel> LoadProductModels()
+        {
+            var data = LoadProducts();
+            List<ProductModel> products = new List<ProductModel>();
+
+            foreach (var row in data)
+            {
+                products.Add(new ProductModel
+                {
+                    ProductID = row.ProductID,
+                    SKU = row.SKU,
+                    ProductDescription = row.ProductDescription
+                });
+            }
+
+            return products;
+        }
+
+        private static List<BinModel> LoadBinModels()
+        {
+            var data = LoadBins();
+            List<BinModel> bins = new List<BinModel>();
+
+            foreach (var row in data)
+            {
+                bins.Add(new BinModel
+                {
+                    BinID = row.BinID,
+                    BinName = row.BinName
+                });
+            }
+
+            return bins;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@model InventoryManagement.Models.OrderLinesModel
+@using InventoryManagement.Models
 
 @{
     ViewBag.Title = "Add Order Lines";
@@ -6,20 +7,13 @@
 
 <h2>Order @Html.DisplayFor(model => model.OrderID)</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.OrderLineID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrderLineID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrderLineID, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
 
         <div class="form-group hidden">
             @Html.LabelFor(model => model.OrderID, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -32,7 +26,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ProductID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ProductID, new { htmlAttributes = new { @class = "form-control" } })
+                @{
+                    List<ProductModel> products = ViewBag.Products;
+                }
+                @Html.DropDownListFor(model => model.ProductID, products.Select(product => new SelectListItem { Value = product.ProductID.ToString(), Text = product.ProductDescription }))
                 @Html.ValidationMessageFor(model => model.ProductID, "", new { @class = "text-danger" })
             </div>
         </div>

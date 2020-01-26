@@ -6,6 +6,13 @@
 
 <h2>Orders</h2>
 
+@if (TempData["errorMessage"] != null)
+{
+    <p class="alert alert-danger">
+        @TempData["errorMessage"]
+    </p>
+}
+
 <p>
     @Html.ActionLink("Create New", "AddOrder")
 </p>
@@ -29,30 +36,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrderID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrderNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateOrdered)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustomerName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustomerAddress)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditOrder", new { id = item.OrderID }) |
-            <a href="../OrderLines/Index/@item.OrderID">Order Line Details</a> |
-            @Html.ActionLink("Details", "OrderDetails", new { id = item.OrderID }) |
-            @Html.ActionLink("Delete", "DeleteOrder", new { id = item.OrderID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOrdered)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerAddress)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditOrder", new { id = item.OrderID }) |
+                <a href="../OrderLines/Index/@item.OrderID">Order Details</a> |
+                @Html.ActionLink("Delete", "DeleteOrder", new { id = item.OrderID })
+            </td>
+        </tr>
+    }
 
 </table>

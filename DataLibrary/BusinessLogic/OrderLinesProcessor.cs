@@ -1,10 +1,7 @@
 ﻿using DataLibrary.DataAccess;
 using DataLibrary.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static DataLibrary.BusinessLogic.InventoryProcessor;
 
 namespace DataLibrary.BusinessLogic
@@ -19,26 +16,17 @@ namespace DataLibrary.BusinessLogic
             return SqlDataAccess.Query<OrderLinesModel>(sql, new { orderID = orderID });
         }
 
-        public static int CreateOrderLine(int orderID, int productID, int totalQuantity)
+        public static OrderLinesModel LoadOrderLine(int orderLineID)
         {
-            var totalToSubtract = totalQuantity;
-            var inventory = LoadInventory(productID);
-            foreach(var bin in inventory)
-            {
-                int numberToSubtractFromBin = totalToSubtract <= bin.QTY ? totalToSubtract : bin.QTY;
-                totalToSubtract = totalToSubtract - numberToSubtractFromBin;
-                bin.QTY = bin.QTY - numberToSubtractFromBin;
+            string sql = @"select OrderLineID, OrderID, ProductID, QTY
+                        from dbo.orderlines WHERE OrderLineID = @orderLineID ;";
 
-                UpdateInventory(bin.InventoryID,
-                    bin.ProductID,
-                    bin.BinID,
-                    bin.QTY);
+            return SqlDataAccess.Query<OrderLinesModel>(sql, new { orderLineID = orderLineID }).FirstOrDefault();
+        }
 
-                if(totalToSubtract <= 0)
-                {
-                    break;
-                }
-            }
+        public static void CreateOrderLine(int orderID, int productID, int totalQuantity)
+        {
+            AdjustInventory(productID, totalQuantity);
 
             OrderLinesModel data = new OrderLinesModel
             {
@@ -49,15 +37,24 @@ namespace DataLibrary.BusinessLogic
 
             string sql = @"insert into dbo.orderlines (OrderID, ProductID, QTY)
                           values (@OrderID, @ProductID, @QTY);";
-
-            //string sql = @"insert into dbo.orderlines (OrderID, ProductID, QTY) 
-            //                values (@OrderID, @ProductID, @QTY);";
-
-            return SqlDataAccess.Execute(sql, data);
+            try
+            {
+                SqlDataAccess.Execute(sql, data);
+            }
+            catch (System.Exception)
+            {
+                AdjustInventory(productID, totalQuantity * -1);
+                throw;
+            }  
         }
 
         public static int UpdateOrderLines(int orderLineID, int orderID, int productID, int qty)
         {
+            var previousState = LoadOrderLine(orderLineID);
+
+            int changeInQuantity = qty - previousState.QTY;
+            AdjustInventory(productID, changeInQuantity);
+
             OrderLinesModel data = new OrderLinesModel
             {
                 OrderLineID = orderLineID,
@@ -66,26 +63,26 @@ namespace DataLibrary.BusinessLogic
                 QTY = qty
             };
 
-            //string sql = @"update dbo.orderlines 
-            //            set ProductID = @ProductID, QTY = @QTY 
-            //            WHERE OrderLineID = @OrderLineID;";
-
-            string sql = @"begin transaction; 
-                           update dbo.orderlines 
+            string sql = @"update dbo.orderlines 
                            set ProductID = @ProductID, QTY = @QTY 
-                           WHERE OrderLineID = @OrderLineID;
+                           WHERE OrderLineID = @OrderLineID;";
 
-                           update dbo.inventory 
-                           set QTY = @qty 
-                           WHERE ProductID = @ProductID;
-
-                           commit;";
-
-            return SqlDataAccess.Execute(sql, data);
+            try
+            {
+                return SqlDataAccess.Execute(sql, data);
+            }
+            catch (System.Exception)
+            {
+                AdjustInventory(productID, changeInQuantity * -1);
+                throw;
+            }
         }
 
         public static int RemoveOrderLine(int orderLineID)
         {
+            var previousState = LoadOrderLine(orderLineID);
+            AdjustInventory(previousState.ProductID, previousState.QTY * -1);
+
             OrderLinesModel data = new OrderLinesModel
             {
                 OrderLineID = orderLineID
