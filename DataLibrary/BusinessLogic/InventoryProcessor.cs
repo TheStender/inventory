@@ -10,44 +10,44 @@ namespace DataLibrary.BusinessLogic
         public static void CreateInventory(int inventoryID, int productID, int binID, int qty)
         {
             // test
-            var inventory = LoadInventory(productID);
-            foreach (var bin in inventory)
-            {
-                if (binID == bin.BinID)
-                {
-                    UpdateInventory(inventoryID, productID, binID, qty);
-                } else
-                {
-                    InventoryModel data = new InventoryModel
-                    {
-                        InventoryID = inventoryID,
-                        ProductID = productID,
-                        BinID = binID,
-                        QTY = qty
-                    };
+            //var inventory = LoadInventory(productID);
+            //foreach (var bin in inventory)
+            //{
+            //    if (binID == bin.BinID)
+            //    {
+            //        UpdateInventory(inventoryID, productID, binID, qty);
+            //    } else
+            //    {
+            //        InventoryModel data = new InventoryModel
+            //        {
+            //            InventoryID = inventoryID,
+            //            ProductID = productID,
+            //            BinID = binID,
+            //            QTY = qty
+            //        };
 
-                    string sql = @"insert into dbo.inventory (ProductID, BinID, QTY)
-                           values (@ProductID, @BinID, @QTY);";
+            //        string sql = @"insert into dbo.inventory (ProductID, BinID, QTY)
+            //               values (@ProductID, @BinID, @QTY);";
 
-                    SqlDataAccess.Execute(sql, data);
-                }
-            }
+            //        SqlDataAccess.Execute(sql, data);
+            //    }
+            //}
             //end test
 
             //code below is original code
 
-            //InventoryModel data = new InventoryModel
-            //{
-            //    InventoryID = inventoryID,
-            //    ProductID = productID,
-            //    BinID = binID,
-            //    QTY = qty
-            //};
+            InventoryModel data = new InventoryModel
+            {
+                InventoryID = inventoryID,
+                ProductID = productID,
+                BinID = binID,
+                QTY = qty
+            };
 
-            //string sql = @"insert into dbo.inventory (ProductID, BinID, QTY)
-            //               values (@ProductID, @BinID, @QTY);";
+            string sql = @"insert into dbo.inventory (ProductID, BinID, QTY)
+                           values (@ProductID, @BinID, @QTY);";
 
-            //SqlDataAccess.Execute(sql, data);
+            SqlDataAccess.Execute(sql, data);
         }
 
         public static List<InventoryModel> LoadInventory()
