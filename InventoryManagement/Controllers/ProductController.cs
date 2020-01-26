@@ -20,12 +20,7 @@ namespace InventoryManagement.Controllers
 
             foreach (var row in data)
             {
-                products.Add(new ProductModel
-                {
-                    ProductID = row.ProductID,
-                    SKU = row.SKU,
-                    ProductDescription = row.ProductDescription
-                });
+                products.Add(ConvertFromDataModel(row));
             }
 
             return View(products);
@@ -86,7 +81,7 @@ namespace InventoryManagement.Controllers
             try
             {
                 var p = products.Where(x => x.ProductID == id).FirstOrDefault();
-                return View(p);
+                return View(ConvertFromDataModel(p));
             }
             catch
             {
@@ -125,7 +120,7 @@ namespace InventoryManagement.Controllers
             try
             {
                 var p = products.Where(x => x.ProductID == id).FirstOrDefault();
-                return View(p);
+                return View(ConvertFromDataModel(p));
             }
             catch
             {
@@ -147,6 +142,16 @@ namespace InventoryManagement.Controllers
                 TempData["errorMessage"] = e.Message;
                 return RedirectToAction("Index");
             }
+        }
+
+        private static ProductModel ConvertFromDataModel(DataLibrary.Models.ProductModel row)
+        {
+            return new ProductModel
+            {
+                ProductID = row.ProductID,
+                SKU = row.SKU,
+                ProductDescription = row.ProductDescription
+            };
         }
     }
 }

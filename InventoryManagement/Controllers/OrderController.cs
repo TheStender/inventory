@@ -22,14 +22,7 @@ namespace InventoryManagement.Controllers
 
             foreach (var row in data)
             {
-                orders.Add(new OrderModel
-                {
-                    OrderID = row.OrderID,
-                    OrderNumber = row.OrderNumber,
-                    DateOrdered = row.DateOrdered,
-                    CustomerName = row.CustomerName,
-                    CustomerAddress = row.CustomerAddress
-                });
+                orders.Add(ConvertFromDataModel(row));
             }
 
             return View(orders);
@@ -100,7 +93,7 @@ namespace InventoryManagement.Controllers
             try
             {
                 var order = orders.Where(x => x.OrderID == id).FirstOrDefault();
-                return View(order);
+                return View(ConvertFromDataModel(order));
             }
             catch
             {
@@ -140,7 +133,7 @@ namespace InventoryManagement.Controllers
             try
             {
                 var order = orders.Where(x => x.OrderID == id).FirstOrDefault();
-                return View(order);
+                return View(ConvertFromDataModel(order));
             }
             catch
             {
@@ -162,6 +155,18 @@ namespace InventoryManagement.Controllers
                 TempData["errorMessage"] = e.Message;
                 return RedirectToAction("Index");
             }
+        }
+
+        private static OrderModel ConvertFromDataModel(DataLibrary.Models.OrderModel row)
+        {
+            return new OrderModel
+            {
+                OrderID = row.OrderID,
+                OrderNumber = row.OrderNumber,
+                DateOrdered = row.DateOrdered,
+                CustomerName = row.CustomerName,
+                CustomerAddress = row.CustomerAddress
+            };
         }
     }
 }

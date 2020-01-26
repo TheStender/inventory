@@ -22,13 +22,7 @@ namespace InventoryManagement.Controllers
 
             foreach (var row in data)
             {
-                inventory.Add(new InventoryModel
-                {
-                    InventoryID = row.InventoryID,
-                    ProductID = row.ProductID,
-                    BinID = row.BinID,
-                    QTY = row.QTY
-                });
+                inventory.Add(ConvertFromDataModel(row));
             }
 
             return View(inventory);
@@ -42,7 +36,7 @@ namespace InventoryManagement.Controllers
             try
             {
                 var stock = inventory.Where(x => x.InventoryID == id).FirstOrDefault ();
-                return View(stock);
+                return View(ConvertFromDataModel(stock));
             }
             catch
             {
@@ -95,7 +89,7 @@ namespace InventoryManagement.Controllers
             try
             {
                 var inv = inventory.Where(x => x.InventoryID == id).FirstOrDefault();
-                return View(inv);
+                return View(ConvertFromDataModel(inv));
             }
             catch
             {
@@ -137,7 +131,7 @@ namespace InventoryManagement.Controllers
             try
             {
                 var inv = inventory.Where(x => x.InventoryID == id).FirstOrDefault();
-                return View(inv);
+                return View(ConvertFromDataModel(inv));
             }
             catch
             {
@@ -186,6 +180,17 @@ namespace InventoryManagement.Controllers
             }
 
             return bins;
+        }
+
+        private static InventoryModel ConvertFromDataModel(DataLibrary.Models.InventoryModel row)
+        {
+            return new InventoryModel
+            {
+                InventoryID = row.InventoryID,
+                ProductID = row.ProductID,
+                BinID = row.BinID,
+                QTY = row.QTY
+            };
         }
     }
 }

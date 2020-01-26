@@ -19,11 +19,7 @@ namespace InventoryManagement.Controllers
 
             foreach (var row in data)
             {
-                bins.Add(new BinModel
-                {
-                    BinID = row.BinID,
-                    BinName = row.BinName
-                });
+                bins.Add(ConvertFromDataModel(row));
             }
 
             return View(bins);
@@ -37,7 +33,7 @@ namespace InventoryManagement.Controllers
             try
             {
                 var p = bins.Where(x => x.BinID == id).FirstOrDefault();
-                return View(p);
+                return View(ConvertFromDataModel(p));
             }
             catch
             {
@@ -82,7 +78,7 @@ namespace InventoryManagement.Controllers
             try
             {
                 var b = bins.Where(x => x.BinID == id).FirstOrDefault();
-                return View(b);
+                return View(ConvertFromDataModel(b));
             }
             catch
             {
@@ -120,7 +116,7 @@ namespace InventoryManagement.Controllers
             try
             {
                 var b = bins.Where(x => x.BinID == id).FirstOrDefault();
-                return View(b);
+                return View(ConvertFromDataModel(b));
             }
             catch
             {
@@ -142,6 +138,15 @@ namespace InventoryManagement.Controllers
                 TempData["errorMessage"] = e.Message;
                 return RedirectToAction("Index");
             } 
+        }
+
+        private static BinModel ConvertFromDataModel(DataLibrary.Models.BinModel row)
+        {
+            return new BinModel
+            {
+                BinID = row.BinID,
+                BinName = row.BinName
+            };
         }
     }
 }

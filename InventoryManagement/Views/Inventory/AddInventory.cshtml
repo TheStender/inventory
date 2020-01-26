@@ -38,7 +38,7 @@
                 @{
                     List<BinModel> bins = ViewBag.Bins;
                 }
-                @Html.DropDownListFor(model => model.BinID, bins.Select(bin => new SelectListItem { Value = bin.BinID.ToString(), Text = bin.BinID.ToString() }))
+                @Html.DropDownListFor(model => model.BinID, bins.Select(bin => new SelectListItem { Value = bin.BinID.ToString(), Text = bin.BinName }))
                 @Html.ValidationMessageFor(model => model.BinID, "", new { @class = "text-danger" })
             </div>
         </div>

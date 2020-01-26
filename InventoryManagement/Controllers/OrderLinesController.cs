@@ -23,13 +23,7 @@ namespace InventoryManagement.Controllers
 
             foreach (var row in data)
             {
-                orderLines.Add(new OrderLinesModel
-                {
-                    OrderLineID = row.OrderLineID,
-                    OrderID = row.OrderID,
-                    ProductID = row.ProductID,
-                    QTY = row.QTY
-                });
+                orderLines.Add(ConvertFromDataModel(row));
             }
 
             ViewBag.Order = orders.Where(x => x.OrderID == orderID).FirstOrDefault();
@@ -83,7 +77,7 @@ namespace InventoryManagement.Controllers
             ViewBag.OrderID = orderID;
 
             var orderLine = orderLines.Where(x => x.OrderLineID == id).FirstOrDefault();
-            return View(orderLine);
+            return View(ConvertFromDataModel(orderLine));
         }
 
         [HttpPost]
@@ -115,7 +109,7 @@ namespace InventoryManagement.Controllers
             ViewBag.OrderID = orderID;
 
             var orderLine = orderLines.Where(x => x.OrderLineID == id).FirstOrDefault();
-            return View(orderLine);
+            return View(ConvertFromDataModel(orderLine));
         }
 
         [HttpPost]
@@ -153,6 +147,17 @@ namespace InventoryManagement.Controllers
             }
 
             return products;
+        }
+
+        private static OrderLinesModel ConvertFromDataModel(DataLibrary.Models.OrderLinesModel row)
+        {
+            return new OrderLinesModel
+            {
+                OrderLineID = row.OrderLineID,
+                OrderID = row.OrderID,
+                ProductID = row.ProductID,
+                QTY = row.QTY
+            };
         }
     }
 }
