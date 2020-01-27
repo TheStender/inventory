@@ -28,7 +28,7 @@
 - Removing the inventory when it hits zero would not allow for adding inventory back in if the orders are deleted or edited. Removing the inventory could also create issues when adding inventory back in to the bins where it should go. For this reason the inventory is still allowed to list zero inventory.
 
 ## Next Steps
-- An idea for the inventory table would be to add real inventory vs. reservered inventory. That way when an order for a customer is created the inventory is reserved, but since it has not been removed from the bin yet, the real inventory would still track that. This would allow for editing/deleting of orders without changing the actual inventory
+- An idea for the inventory table would be to add real inventory vs. reserved inventory. That way when an order for a customer is created the inventory is reserved, but since it has not been removed from the bin yet, the real inventory would still track that. This would allow for editing/deleting of orders without changing the actual inventory
 - SQL transactions could be added so that the inventory could be checked and updated in the same transaction which would allow multiple users to create orders at the same time 
 - Unit Testing needs to be implemented
 - Adding a maximum size for bins, this would allow bins that store smaller products to hold more, and bins that store larger products to hold less
