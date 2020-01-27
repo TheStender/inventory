@@ -72,7 +72,7 @@ namespace InventoryManagement.Controllers
                 }
                 catch (Exception e)
                 {
-                    ViewBag.ErrorMessage = e.Message;
+                    ViewBag.ErrorMessage = "That operation could not be completed. Please update the information and try again, or contact your system administrator.";
                     return View(model);
                 } 
             }
@@ -114,7 +114,7 @@ namespace InventoryManagement.Controllers
                 }
                 catch (Exception e)
                 {
-                    ViewBag.ErrorMessage = e.Message;
+                    ViewBag.ErrorMessage = "That operation could not be completed. Please update the information and try again, or contact your system administrator.";
                     return View(model);
                 }
                 

@@ -50,11 +50,6 @@ namespace DataLibrary.BusinessLogic
 
         public static int UpdateOrderLines(int orderLineID, int orderID, int productID, int qty)
         {
-            var previousState = LoadOrderLine(orderLineID);
-
-            int changeInQuantity = qty - previousState.QTY;
-            AdjustInventory(productID, changeInQuantity);
-
             OrderLinesModel data = new OrderLinesModel
             {
                 OrderLineID = orderLineID,
@@ -67,15 +62,7 @@ namespace DataLibrary.BusinessLogic
                            set ProductID = @ProductID, QTY = @QTY 
                            WHERE OrderLineID = @OrderLineID;";
 
-            try
-            {
                 return SqlDataAccess.Execute(sql, data);
-            }
-            catch (System.Exception)
-            {
-                AdjustInventory(productID, changeInQuantity * -1);
-                throw;
-            }
         }
 
         public static int RemoveOrderLine(int orderLineID)

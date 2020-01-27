@@ -5,12 +5,8 @@
     ViewBag.Title = "Product Details";
 }
 
-@{ 
-    var inventory = InventoryProcessor.CheckInventory(Model.ProductID);
-}
-
 <h2>Product @Html.DisplayFor(model => model.ProductID) </h2>
-<p>Current Inventory: @inventory</p>
+
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -41,6 +37,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "EditProduct", new { id = Model.ProductID  }) |
+    @Html.ActionLink("Edit", "EditProduct", new { id = Model.ProductID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

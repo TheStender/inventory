@@ -32,8 +32,6 @@ namespace InventoryManagement.Controllers
 
         public ActionResult AddOrderLines(int orderID)
         {
-            
-
             ViewBag.Products = LoadProductModels();
 
             return View(new OrderLinesModel {
@@ -64,7 +62,7 @@ namespace InventoryManagement.Controllers
                 }
                 catch (Exception e)
                 {
-                    ViewBag.ErrorMessage = e.Message;
+                    ViewBag.ErrorMessage = "That operation could not be completed. Please update the information and try again, or contact your system administrator.";
                     return View(model);
                 }
             }
@@ -87,6 +85,19 @@ namespace InventoryManagement.Controllers
             {
                 try
                 {
+                    var previousState = LoadOrderLine(model.OrderLineID);
+
+                    int changeInQuantity = model.QTY - previousState.QTY;
+
+                    var productRemaining = CheckInventory(model.ProductID);
+                    if (productRemaining < changeInQuantity)
+                    {
+                        ViewBag.ErrorMessage = "Not enough inventory, only " + productRemaining + " remaining";
+                        return View(model);
+                    }
+
+                    AdjustInventory(model.ProductID, changeInQuantity);
+
                     UpdateOrderLines(model.OrderLineID,
                         model.OrderID,
                         model.ProductID,
@@ -95,12 +106,12 @@ namespace InventoryManagement.Controllers
                 }
                 catch (Exception e)
                 {
-                    ViewBag.ErrorMessage = e.Message;
+                    ViewBag.ErrorMessage = "That operation could not be completed. Please update the information and try again, or contact your system administrator.";
                     return View(model);
                 }
             }
 
-            return View();
+            return View(model);
         }
 
         public ActionResult DeleteOrderLines(int orderID, int id)
@@ -123,7 +134,7 @@ namespace InventoryManagement.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = e.Message;
+                ViewBag.ErrorMessage = "That operation could not be completed. Please update the information and try again, or contact your system administrator.";
                 return View(model);
             }
 

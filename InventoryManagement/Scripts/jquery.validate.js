@@ -798,7 +798,7 @@ $.extend( $.validator, {
 						console.log( "Exception occurred when checking element " + element.id + ", check the '" + rule.method + "' method.", e );
 					}
 					if ( e instanceof TypeError ) {
-						e.message += ".  Exception occurred when checking element " + element.id + ", check the '" + rule.method + "' method.";
+						"That operation could not be completed. Please update the information and try again, or contact your system administrator." += ".  Exception occurred when checking element " + element.id + ", check the '" + rule.method + "' method.";
 					}
 
 					throw e;

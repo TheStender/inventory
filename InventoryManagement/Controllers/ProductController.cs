@@ -34,7 +34,7 @@ namespace InventoryManagement.Controllers
             try
             {
                 var p = products.Where(x => x.ProductID == id).FirstOrDefault();
-                return View(p);
+                return View(ConvertFromDataModel(p));
             }
             catch
             {
@@ -64,7 +64,7 @@ namespace InventoryManagement.Controllers
                 }
                 catch (Exception e)
                 {
-                    ViewBag.ErrorMessage = e.Message;
+                    ViewBag.ErrorMessage = "That operation could not be completed. Please update the information and try again, or contact your system administrator.";
                     return View(model);
                 }
 
@@ -104,7 +104,7 @@ namespace InventoryManagement.Controllers
                 }
                 catch (Exception e)
                 {
-                    ViewBag.ErrorMessage = e.Message;
+                    ViewBag.ErrorMessage = "That operation could not be completed. Please update the information and try again, or contact your system administrator.";
                     return View(model);
                 } 
             }
@@ -139,7 +139,7 @@ namespace InventoryManagement.Controllers
             }
             catch (Exception e)
             {
-                TempData["errorMessage"] = e.Message;
+                TempData["errorMessage"] = "That operation could not be completed. Please update the information and try again, or contact your system administrator.";
                 return RedirectToAction("Index");
             }
         }

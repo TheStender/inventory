@@ -23,6 +23,7 @@ namespace InventoryManagement.Models
         public int ProductID { get; set; }
 
         [Display(Name = "Quantity")]
+        [Range(1, 9999999, ErrorMessage = "Please enter a valid product number(0-9999999)")]
         [Required(ErrorMessage = "Please enter the quantity")]
         public int QTY { get; set; }
     }
